@@ -1,0 +1,4 @@
+username: teacher
+password: teacher
+
+please use this as some features are unavailable on the admin account we used earlier during the presentation
