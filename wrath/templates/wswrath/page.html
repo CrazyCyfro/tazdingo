@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<script language="JavaScript">
+<!--
+function autoResize() {
+  var newheight = window.screen.availHeight;
+  var newwidth = window.screen.availWidth;
+
+  document.getElementById("iframe1").height = (newheight * 0.6) + "px";
+  document.getElementById("iframe1").width = (newwidth * 0.9) + "px";
+}
+
+function displayPercent() {
+  document.getElementById("percenttable").style.display = "inline";
+  document.getElementById("ratingtable").style.display = "none";
+}
+
+function displayRating() {
+  document.getElementById("percenttable").style.display = "none";
+  document.getElementById("ratingtable").style.display = "inline";
+}
+//-->
+</script>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Wrath: {{ page.title }}</title>
+    <style>
+      body {
+        background: url('../../media/wrath/colorful-triangles-background.jpg') fixed 50% / cover;               
+      }
+    </style>
+    
+    <!-- Bootstrap -->
+    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="icon" href="../../media/wrath/wrath.ico" type="image/ico">
+  </head>
+  
+  <body>
+    <nav class="navbar navbar-default">
+      <div class="container">
+        <ul class="nav navbar-nav navbar-right">
+          {% if user.is_authenticated %}
+            <li class="navbar-text">Welcome, {{ user.username }}!</li>
+            <li class="navbar-link"><a href="/wswrath/logout/">Logout</a></li>
+          {% else %}
+            <li class="navbar-link"><a href="/wswrath/register/">Register</a></li>
+            <li class="navbar-link"><a href="/wswrath/login/">Login</a></li>
+          {% endif %}
+        </ul>
+        <ul class="nav navbar-nav navbar-left">
+          <a class="navbar-brand" href="/wswrath/">Wrath</a>
+          <li class="navbar-link"><a href="/wswrath/compare/">Compare</a></li>
+          <!--li class="navbar-link"><a href="/wswrath/add_url/">Add Page</a></li>-->
+          <li class="navbar-link"><a href="/wswrath/weblink">Weblink</a></li>
+          <li class="navbar-link"><a href="http://wicked-meteor-99-126380.apse1.nitrousbox.com/search/">Search</a></li>
+          
+          <form id="add_url" method="post" class="navbar-form navbar-left" action="/wswrath/">
+            {% csrf_token %}
+            <div class="form-group">
+              <input class="form-control" id="id_url" maxlength="200" name="url" type="url" placeholder="Add URL"/>
+            </div>
+            <input id="add_submit" type="submit" class="btn btn-success" name="submit" value="Submit">
+          </form>
+        </ul>
+      </div>  
+    </nav>
+    
+    <div id="iframe" style="text-align:center;">
+      <iframe src="{{ page.url }}" width="100%" height="600" id="iframe1" onLoad="autoResize();"></iframe>
+    </div>
+    <br><br>
+    
+    <div class="container-fluid">
+      <div class="row">
+        <a href="{{ page.url }}">View this website</a>
+      </div>
+    </div>
+    
+    <div id="percenttable" style="display:inline;">
+      <table class="table" style="background-color:white;">
+        <tr>
+          <th>Page</th>
+          <th>%<b class="caret"></b></th>
+          <th><a onclick="displayRating();" class="btn-link" style="font-weight:bold">Rating<b class="caret"></b></a></th>
+          <th>Rate</th>
+        </tr>
+        <tb>
+          {% for name, percent, rating, url in comparisonspercent %}
+          <tr>
+            <td><a href="/wswrath/pages/{{ url }}">{{ name }}</a></td>
+            <td>{{ percent }}</td>
+            <td>{{ rating }}</td>
+            <td><a href="/wswrath/pages/{{ page.urltitle }}/{{ url }}/upvote"><img src = "../../media/wrath/upvote.jpg" style = "width:42px;height:42px;border:0"></a> <a href="/wswrath/pages/{{ page.urltitle}}/{{ url }}/downvote"><img src = "../../media/wrath/downvote.jpg" style = "width:42px;height:42px;border:0"></a></td>
+          </tr>
+          {% endfor %}
+        </tb>
+      </table>
+    </div>
+
+    <div id="ratingtable" style="display:none;">
+      <table class="table" style="background-color:white;">
+        <tr>
+          <th>Page</th>
+          <th><a onclick="displayPercent();" class="btn-link" style="font-weight:bold">%<b class="caret"></b></a></th>
+          <th>Rating<b class="caret"></b></th>
+          <th>Rate</th>
+        </tr>
+        <tb>
+          {% for name, percent, rating, url in comparisonsrating %}
+          <tr>
+            <td><a href="/wswrath/pages/{{ url }}">{{ name }}</a></td>
+            <td>{{ percent }}</td>
+            <td>{{ rating }}</td>
+            <td><a href="/wswrath/pages/{{ page.urltitle }}/{{ url }}/upvote"><img src = "../../media/wrath/upvote.jpg" style = "width:42px;height:42px;border:0"></a> <a href="/wswrath/pages/{{ page.urltitle}}/{{ url }}/downvote"><img src = "../../media/wrath/downvote.jpg" style = "width:42px;height:42px;border:0"></a></td>
+          </tr>
+          {% endfor %}
+        </tb>
+      </table>
+    </div>    
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+  </body>
+</html>

@@ -1,0 +1,43 @@
+{% extends 'wswrath/base.html' %}
+{% load newfilters %}
+{% block title %}Bookmark{% endblock %}
+{% block body_block %}
+  <h2>Register with Wrath</h2>
+
+  {% if registered %}
+    <strong>Thank you for registering!</strong><br>
+    <a href="/wswrath/">Return to the homepage.</a><br />
+  
+  {% else %}
+    <form id="user_form" method="post" action="/wswrath/register/" enctype="multipart/form-data">      
+
+      {% csrf_token %}
+
+      {% for hidden in user_form.hidden_fields %}
+        {{ hidden }}
+      {% endfor %}
+
+      {% for field in user_form.visible_fields %}
+        {{ field.errors }}
+        <div class="form-group">
+          <label>{{ field.label }}</label>
+          {{ field |addcss:"class:form-control" }}          
+        </div>
+      {% endfor %}
+            
+      {% for hidden in profile_form.hidden_fields %}
+        {{ hidden }}
+      {% endfor %}
+
+      {% for field in profile_form.visible_fields %}
+        {{ field.errors }}
+        <div class="form-group">
+          <label>{{ field.label }}</label>
+          {{ field |addcss:"class:form-control" }}
+        </div>
+      {% endfor %}
+
+      <input class="btn btn-primary btn-lg btn-block" type="submit" name="submit" value="Register" />
+    </form>
+  {% endif %}
+{% endblock %}

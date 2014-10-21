@@ -1,0 +1,55 @@
+Ok guys use this file to communicate k, pls write out what u think needs to be worked on, or need help with, etc.
+CHECK THIS REGULARLY
+
+changes: 26/9
+added new field in URL model 'urltitle', which is just 'cleaned' with spaces replaced by underscores
+rating system works, but just the upvote part for now. downvote and only one vote per person i will do soon.
+
+models for ratings are working ok, zhiyi u can use those for now, add whatever numbers to test
+can we get our basic features (map, rating, switch btwn algo & user-generated stuff) done before the weekend ends? thanks (done -LK 27/9)
+
+-YW
+
+changes: 27/9
+created downvote function in views
+rating system now completely works, one vote per person (report bugs if found here)
+user can now choose whether to sort by our algorithm or user ratings
+
+zhiyi your weblink page is now broken you need to switch to URLComparison can you pls fix
+can we get like two thumbnails (up arrow & down arrow) to sub in for the "Upvote" and "Downvote" buttons?
+
+-LK
+
+changes: 27/9
+LK when you change the code can you make sure the html also works as well?
+fixed many stuff, cant get jquery to work though, no idea why. LK can u use ajax to toggle between the two views? 
+added search function
+
+-YW
+
+changes: 30/9
+updated URLComparison to foreign keys (as ZY suggested)
+updated page and weblink to work with the new model
+figured out why page was so laggy - the problem was that i was beautifulsouping to get the title every time. managed to fix using the foreign keys. 
+cut database size by half, only storing one copy of url1, url2 in which url1.url < url2.url
+i broke the compare page :( don't think there's a nice way to fix it
+
+-LK
+
+changes: 3/10
+figured out why compare was broken, you changed the URLComparison model to foreign key, and that made my form need an actual URL model to function. fixed it.
+tried adding ajax but failed miserably, now website sneakily redirects back to the same page after adding URL.
+made everything look nicer. Anything else to add?
+reminder to do the stuff needed for submission, aka reflections, presentation...attached project.docx for reference
+
+-YW
+
+an overview of time complexities (N is number of webpages)
+/wswrath/index: O(N)
+/wswrath/pages/...: O(N^2)
+/wswrath/pages/.../upvote: O(N^2)
+/wswrath/pages/.../downvote: O(N^2)
+/wswrath/weblink/...: O(N^2)
+everything else: O(1)
+
+-LK

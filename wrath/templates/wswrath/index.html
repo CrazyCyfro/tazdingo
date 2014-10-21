@@ -1,0 +1,45 @@
+{% extends 'wswrath/base.html' %}
+{% load newfilters %}
+{% block title %}Bookmark{% endblock %}
+{% block body_block %}
+  
+  {% if user.is_authenticated %}
+    <div class="row text-center">
+        <img src="../../media/wrath/WRATH.jpg" style="width:150px;height:93px"><br><br>
+    </div>
+    {% if pages %}
+      <h3><strong>Some random pages...</strong></h3>
+      <div class="row">
+        <ul class="list-group">
+          {% for page in pages %}
+            <li class="list-group-item"><a href="/wswrath/pages/{{ page.urltitle }}">{{ page.title }}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
+
+      {% if recent %}
+      <h3><strong>Recently viewed...</strong></h3>
+      <div class="row">
+        <ul class="list-group">
+          {% for recentpage in recent %}
+            <li class="list-group-item"><a href="/wswrath/pages/{{ recentpage.urltitle }}">{{ recentpage.title }}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% endif %}
+
+    {% else %}
+      <strong>There are no pages yet.</strong>
+    {% endif %}
+            
+  {% else %}
+    <div class="container-fluid">
+      <div class="row text-center">
+        <img src="../../media/wrath/WRATH.jpg" style="width:150px;height:93px"><br><br>
+      </div>
+      <a class="btn btn-primary btn-lg btn-block" href="/wswrath/register/">Register</a><br />
+      
+      <a class="btn btn-primary btn-lg btn-block" href="/wswrath/login/">Log in</a><br />
+    </div>
+  {% endif %}  
+{% endblock %}

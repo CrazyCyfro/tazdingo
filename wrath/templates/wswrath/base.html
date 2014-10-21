@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Wrath</title>
+
+    <!-- Bootstrap -->
+    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      body {
+        background: url('../../media/wrath/colorful-triangles-background.jpg') fixed 50% / cover;               
+      }
+    </style>
+    <link rel="icon" href="../../media/wrath/wrath.ico" type="image/ico">
+  </head>
+  
+  <body>
+    <nav class="navbar navbar-default">
+      <div class="container">
+        
+        {% if user.is_authenticated %}
+        <ul class="nav navbar-nav navbar-right">
+            <li class="navbar-text">Welcome, {{ user.username }}!</li>
+            <li class="navbar-link"><a href="/wswrath/logout/">Logout</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-left">
+          <a class="navbar-brand" href="/wswrath/">Wrath</a>
+          <li class="navbar-link"><a class="btn btn-link" href="/wswrath/compare/">Compare</a></li>
+          <li class="navbar-link"><a class="btn btn-link" href="/wswrath/weblink/">Weblink</a></li>
+          <li class="navbar-link"><a class="btn btn-link" href="http://wicked-meteor-99-126380.apse1.nitrousbox.com/search/">Search</a></li>
+          
+          <form id="add_url" method="post" class="navbar-form navbar-left" action="/wswrath/">
+            {% csrf_token %}
+            <div class="form-group">
+              <input class="form-control" id="id_url" maxlength="200" name="url" type="url" placeholder="Add URL"/>
+            </div>
+            <input id="add_submit" type="submit" class="btn btn-success" name="submit" value="Submit">
+          </form>
+        </ul>
+        
+        {% else %}
+        <ul class="nav navbar-nav navbar-left">
+          <a class="navbar-brand" href="/wswrath/">Wrath</a>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li class="navbar-link"><a href="/wswrath/register/">Register</a></li>
+            <li class="navbar-link"><a href="/wswrath/login/">Login</a></li>
+        </ul>
+        
+        {% endif %}  
+        
+      </div>  
+    </nav>
+
+    <div class="container">
+      <div class="span12">
+        <div class="jumbotron">
+          {% block body_block %}
+          {% endblock %}
+        </div>
+      </div>  
+    </div>
+    
+    <div class="container">
+      <p class="text-muted"><strong>Created by Chia Zhiyi, Tan Likai and Yan Wei</strong></p>
+    </div>
+  
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+  </body>
+</html>
+
+                  

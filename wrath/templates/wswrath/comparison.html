@@ -1,0 +1,13 @@
+{% extends 'wswrath/base.html' %}
+{% load newfilters %}
+{% block title%}Compare URL{% endblock%}
+{% block body_block %}
+
+  <div class="container">
+    <div class="row text-center">
+        <img src="../../media/wrath/WRATH.jpg" style="width:150px;height:93px"><br><br>
+    </div>
+    <p><mark>{{ url1 }}</mark> and <mark>{{ url2 }}</mark> are <mark>{{ percent }}%</mark> similar.</p><br>
+  </div>
+
+{% endblock %}

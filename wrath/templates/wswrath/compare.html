@@ -1,0 +1,28 @@
+{% extends 'wswrath/base.html' %}
+{% load newfilters %}
+{% block title %}Compare URL{% endblock %}
+{% block body_block %}
+  <div class="container">
+    <div class="row text-center">
+        <img src="../../media/wrath/WRATH.jpg" style="width:150px;height:93px"><br><br>
+    </div>
+    <form id="url_form" method ="post" action="/wswrath/compare/">
+      {% csrf_token %}
+      {% for hidden in form.hidden_fields %}
+        {{ hidden }}
+      {% endfor %}
+
+      {% for field in form.visible_fields %}
+        {{ field.errors }}
+        <div class="form-group">
+          <label>{{ field.help_text }}</label>
+          {{ field |addcss:"class:form-control" }}          
+        </div>
+      
+      {% endfor %}
+
+      <input class="btn btn-primary" type="submit" name="submit" value="Compare" />
+    </form>
+  </div>
+
+{% endblock %}
